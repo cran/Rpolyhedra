@@ -10,15 +10,20 @@
 .onLoad(libname, pkgname)
 }
 \arguments{
-\item{libname}{Library name}
+\item{libname}{The library name}
 
-\item{pkgname}{Package name}
+\item{pkgname}{The package name}
 }
 \description{
 polyhedra database
 }
 \details{
-A 142 polyhedra database scraped from PHD files <http://paulbourke.net/dataformats/phd/> as R6 objects and 'rgl' visualizing capabilities. The PHD format was created to describe the geometric polyhedra definitions derived mathematically <http://www.netlib.org/polyhedra/> by Andrew Hume and by the Kaleido program of Zvi Har'El.
+A polyhedra database scraped from:
+* http://paulbourke.net/dataformats/phd/: PHD files as R6 objects and 'rgl'
+         visualizing capabilities. The PHD format was created to describe the geometric
+         polyhedra definitions derived mathematically <http://www.netlib.org/polyhedra/>
+         by Andrew Hume and by the Kaleido program of Zvi Har'El.
+* http://dmccooey.com/Polyhedra: Polyhedra text datafiles.
 }
 \author{
 Alejandro Baranek <abaranek@dc.uba.ar>, Leonardo Javier Belen <leobelen@gmail.com>
