@@ -1,7 +1,7 @@
 Package: Rpolyhedra
 Type: Package
 Title: Polyhedra Database
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
     person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
     person("Leonardo","Belen",,"leobelen@gmail.com", c("aut","com","cph"))
@@ -20,8 +20,8 @@ Collate: 'xml-lib.R' 'polyhedra-lib.R' 'ledger-lib.R' 'db-lib.R'
         'zzz.R'
 BugReports: https://github.com/qbotics/Rpolyhedra/issues
 NeedsCompilation: no
-Packaged: 2018-03-13 19:50:47 UTC; kenarab
+Packaged: 2018-03-15 12:42:21 UTC; kenarab
 Author: Alejandro Baranek [aut, com, cre, cph],
   Leonardo Belen [aut, com, cph]
 Repository: CRAN
-Date/Publication: 2018-03-13 22:20:03 UTC
+Date/Publication: 2018-03-15 16:46:36 UTC

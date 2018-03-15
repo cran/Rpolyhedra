@@ -1,12 +1,12 @@
-f65aea5d348b713ed4f6ab86f6fc596f *DESCRIPTION
+cb7573a54dcc8787420af5b696d52281 *DESCRIPTION
 ac80ee26f7e94f6bd5e0f6d13e7ee7f5 *LICENSE
 73637f8ebdf9bccbadbee305ab91e8e9 *NAMESPACE
 19cb2eaff891778fbd48fbd5d035f061 *R/db-lib.R
 e5181f7035d15c901faa0c98dda926ab *R/ledger-lib.R
-44fb27769fcd80d76a1d75fbbcd3e632 *R/polyhedra-lib.R
+05de61b13603d31fb27e73639d7668c4 *R/polyhedra-lib.R
 bcca41faf65f568e814c9ce3d13e76ab *R/xml-lib.R
-b2e15813654d327ddc78ee5b23ec251f *R/zzz.R
-00c9015f0021d1be534bd1a70ae6031b *README.md
+549d606c17652a46dc876e2bb676ab78 *R/zzz.R
+e07adbbcc4a6af954930e3459d5003c3 *README.md
 5da9b4062ad27195c3b8d5ec9025e901 *build/vignette.rds
 b7f2863c27d6f9bbf5f29fe987619a0d *inst/doc/Rpolyhedra.Rmd
 3fbe44a642cec854779407a223f3931d *inst/doc/Rpolyhedra.html
@@ -775,7 +775,7 @@ e324ac60785682a180c07da76d10e265 *inst/extdata/dmccooey.com/polyhedra/TruncatedT
 57b726a32c7778ca6095c790ec71c52d *inst/extdata/dmccooey.com/polyhedra/UniformGreatRhombicosidodecahedron.txt
 585eecafa84c257e38331e3e5a8da14a *inst/extdata/dmccooey.com/polyhedra/UniformGreatRhombicuboctahedron.txt
 2595b05a092069459876309893825ecc *inst/extdata/dmccooey.com/robots.txt
-15d250008d087558141eacc358dd5dc0 *inst/extdata/polyhedra.RDS
+9c37f0928634dcbc3867e61cf22a1652 *inst/extdata/polyhedra.RDS
 e1e92ff6f2d706c3e1e9e9904816be85 *inst/extdata/polyhedra.complexity.csv
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/polyhedron.xsd
 7c8526f026b5e30f3e3b937816a2d854 *inst/extdata/retrieve_dmccooey_polyhedra.sh
