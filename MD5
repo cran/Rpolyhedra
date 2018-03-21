@@ -1,13 +1,13 @@
-38a410682cfad742dac740b1a325e8ab *DESCRIPTION
+3eb8914f4ca819ccfd3d7928a150c909 *DESCRIPTION
 ac80ee26f7e94f6bd5e0f6d13e7ee7f5 *LICENSE
 73637f8ebdf9bccbadbee305ab91e8e9 *NAMESPACE
-430e59451f87e8082bc8f41f985379bd *R/db-lib.R
-5a66da857c0e28b99001fad10c6cfb11 *R/ledger-lib.R
+8b2527001d6b78615097689384efdf14 *R/db-lib.R
+d3841e6a6d164771cd500d0faaeb773a *R/ledger-lib.R
 4b92a0fb17f8ce977bd13d71f82dcf0a *R/polyhedra-lib.R
 bcca41faf65f568e814c9ce3d13e76ab *R/xml-lib.R
 e07719f3db0bd1a6b99d5138a4f32743 *R/zzz.R
 e07adbbcc4a6af954930e3459d5003c3 *README.md
-5da9b4062ad27195c3b8d5ec9025e901 *build/vignette.rds
+03d52ea7e0ee3539dc5c5b03a5bef5d5 *build/vignette.rds
 8d70626f63f3a2b4f98340c296a46551 *inst/doc/Rpolyhedra.Rmd
 639bde1b98629b04259b1c2f5227eaf3 *inst/doc/Rpolyhedra.html
 68b329da9893e34099c7d8ad5cb9c940 *inst/doc/poly_original_help_message.R
@@ -775,7 +775,7 @@ e324ac60785682a180c07da76d10e265 *inst/extdata/dmccooey.com/polyhedra/TruncatedT
 57b726a32c7778ca6095c790ec71c52d *inst/extdata/dmccooey.com/polyhedra/UniformGreatRhombicosidodecahedron.txt
 585eecafa84c257e38331e3e5a8da14a *inst/extdata/dmccooey.com/polyhedra/UniformGreatRhombicuboctahedron.txt
 2595b05a092069459876309893825ecc *inst/extdata/dmccooey.com/robots.txt
-1532ee7465e9da095f4643eaec327ac2 *inst/extdata/polyhedra.RDS
+ec83ba2911aa0ecedf0ea42eb2265961 *inst/extdata/polyhedra.RDS
 539e30773d244bcd8b3e15e7da96ef28 *inst/extdata/polyhedra.preloaded.data.csv
 d41d8cd98f00b204e9800998ecf8427e *inst/extdata/polyhedron.xsd
 7c8526f026b5e30f3e3b937816a2d854 *inst/extdata/retrieve_dmccooey_polyhedra.sh
@@ -952,7 +952,7 @@ bb0f12b37f9c87279af42ac3d8c9cdde *man/getDataDir.Rd
 f982b4d59edbe593022d7c6333aaeb5e *man/getGitCommit.Rd
 43930a0bd0488c99f68a7b5915bb4cf9 *man/getPolyhedraRDSPath.Rd
 341ea8267d4dc52b41c594f6ec5cbef4 *man/getPolyhedron.Rd
-617406b0d467a24b9801cc32815e2e2d *man/maxWithoutNA.Rd
+61caf4b78e84aed99567370b8d428ea1 *man/maxWithoutNA.Rd
 672a048b5008c927255b4c3cb904a0f3 *man/norm.Rd
 1b995609421eb994c2c454535752463b *man/polyhedronToXML.Rd
 8f7fa1deb60c8049def01b42bd3bbbe8 *man/scrapePolyhedraSources.Rd
