@@ -1,9 +1,3 @@
-
-
-
-
-
-
 #' Polyhedron State
 #'
 #' This abstract class provide the basis from which polyhedron state class derivate.
@@ -624,6 +618,9 @@ buildRGL = function(size = 1, origin = c(0, 0, 0), normalize.size = TRUE) {
         }
         self$calculateMassCenter(size, vertices.3d = sort(unique(unlist(triangulated.solid))))
         positioned.vertices     <- self$getPositionedVertices(size,origin)
+        positioned.vertices <- checkVertices(vertices = self$getVertices()[,1:3],
+                                             positioned.vertices = positioned.vertices,
+                                             triangulated.solid)
         vertices <- as.matrix(cbind(positioned.vertices, 1))
         ret <- rgl::tmesh3d(c(t(vertices)), unlist(triangulated.solid))
     } else {
@@ -718,6 +715,27 @@ checkProperties = function(expected.vertices, expected.faces){
     self$state$checkEdgesConsistency()
     self
 }))
+
+#' checkVertices()
+#'
+#' Check rendering vertices properties
+#'
+#' @param vertices vertices dataframe for checking
+#' @param positioned.vertices positioned vertices dataframe for checking
+#' @param triangulated.solid triangulated.solid for checking
+#' @return checked positioned vertices
+#' @importFrom stats runif
+
+
+checkVertices <- function(vertices, positioned.vertices, triangulated.solid){
+  triangulated.solid <- sort(unique(unlist(triangulated.solid)))
+  set.seed(sum(vertices[,1:3]))
+  positioned.vertices.rows <- intersect(triangulated.solid,1:nrow(positioned.vertices))
+  row <- positioned.vertices.rows[trunc(runif(1,1,length(positioned.vertices.rows)+1-0.1^9))]
+  col <- trunc(runif(1,1,4-0.1^9))
+  positioned.vertices[row,col] <-positioned.vertices[row,col]+0.1^6
+  positioned.vertices
+}
 
 
 
