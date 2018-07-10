@@ -1,7 +1,7 @@
 Package: Rpolyhedra
 Type: Package
 Title: Polyhedra Database
-Version: 0.2.5
+Version: 0.2.6
 Authors@R: c(
     person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
     person("Leonardo","Belen",,"leobelen@gmail.com", c("aut","com","cph"))
@@ -15,13 +15,13 @@ RoxygenNote: 6.0.1
 Suggests: knitr, rmarkdown, covr
 VignetteBuilder: knitr
 Depends: R (>= 3.0.0)
-Imports: methods, futile.logger, rgl, stringr, R6, testthat, XML
+Imports: futile.logger, rgl, stringr, R6, testthat, XML
 Collate: 'xml-lib.R' 'polyhedra-lib.R' 'ledger-lib.R' 'db-lib.R'
         'zzz.R'
 BugReports: https://github.com/qbotics/Rpolyhedra/issues
 NeedsCompilation: no
-Packaged: 2018-07-03 13:24:41 UTC; kenarab
+Packaged: 2018-07-10 16:18:37 UTC; kenarab
 Author: Alejandro Baranek [aut, com, cre, cph],
   Leonardo Belen [aut, com, cph]
 Repository: CRAN
-Date/Publication: 2018-07-03 15:40:03 UTC
+Date/Publication: 2018-07-10 16:50:03 UTC

@@ -20,11 +20,29 @@
 #' @param pkgname The package name
 .onLoad <- function(libname, pkgname) {
 
+  setPackageEnvir(variable.name = "RpolyhedraEnv", new.env())
+  #assign("RpolyhedraEnv", new.env(), asNamespace("Rpolyhedra"))
+  #dev-package-env
+
+
+  #package version db
+  .package.db <- list()
+  .package.db[["0.2.5"]] <- "0.2.5"
+  .package.db[["0.2.6"]] <- "0.2.6"
+
+  setPackageEnvir(variable.name = ".package.db", .package.db)
+  #assign(".package.db", value = .package.db, envir = asNamespace("Rpolyhedra"))
+  #dev-package-env
+
   #setup Available sources
   .available.sources <- list()
   .available.sources[["netlib"]] <- PolyhedronScraperConfigurationNetlib.class$new()
   .available.sources[["dmccooey"]] <- PolyhedronScraperConfigurationDmccoey.class$new()
-  assign(".available.sources", value = .available.sources, envir = parent.env(environment()))
+
+  setPackageEnvir(variable.name = ".available.sources", .available.sources)
+  #assign(".available.sources", value = .available.sources, envir = asNamespace("Rpolyhedra"))
+  #dev-package-env
+
   .available.scrapping.conf <- list()
   .available.scrapping.conf[["dev-minimal"]] <- list(max.quant.config.schedule = 0,
                                                      max.quant.scrape = 10,
@@ -39,27 +57,19 @@
                                                      max.quant.scrape = 0,
                                                      time2scrape.source = 0,
                                                      retry.scrape = FALSE)
-  assign(".available.scrapping.conf", value = .available.scrapping.conf, envir = parent.env(environment()))
-  if (!exists(".data.env")){
-    setDataDirEnvironment("PACKAGE")
-  }
+
+  setPackageEnvir(variable.name = ".available.scrapping.conf", .available.scrapping.conf)
+  #assign(".available.scrapping.conf", value = .available.scrapping.conf, envir = asNamespace("Rpolyhedra"))
+  #dev-package-env
+
+
+  initDataDirEnvironment()
+
+
   if (!file.exists(getPreloadedDataFilename())){
     downloadRPolyhedraSupportingFiles()
   }
-  .polyhedra <- NULL
-  polyhedra.rds.file <- getPolyhedraRDSPath()
-  if (file.exists(polyhedra.rds.file)) {
-    polyhedra.candidate <- readRDS(polyhedra.rds.file)
-    if (isCompatiblePolyhedraRDS(polyhedra.candidate, halts = TRUE)){
-      .polyhedra <- polyhedra.candidate
-    }
-  }
-  if (is.null(.polyhedra)){
-    .polyhedra <- PolyhedraDatabase.class$new()
-  }
 
-  assign(".polyhedra", value = .polyhedra, envir = parent.env(environment()))
-  scrapePolyhedra(.available.scrapping.conf[["pkg-minimal"]],
-                  sources.config = .available.sources)
+  updatePolyhedraDatabase()
 }
 
