@@ -4,9 +4,11 @@
 \alias{scrapePolyhedraSources}
 \title{scrapePolyhedraSources()}
 \usage{
-scrapePolyhedraSources(sources.config = getPackageEnvir(".available.sources"),
+scrapePolyhedraSources(sources.config =
+         getPackageEnvir(".available.sources"),
     max.quant.config.schedule = 0,
-    max.quant.scrape = 0, time2scrape.source = 30, retry.scrape = FALSE)
+    max.quant.scrape = 0, time2scrape.source = 30,
+    source.filenames = NULL, retry.scrape = FALSE)
 }
 \arguments{
 \item{sources.config}{the sources that will be used by the function}
@@ -16,6 +18,8 @@ scrapePolyhedraSources(sources.config = getPackageEnvir(".available.sources"),
 \item{max.quant.scrape}{number of files scrape}
 
 \item{time2scrape.source}{time applied to scrape source}
+
+\item{source.filenames}{if not null specify which source filenames to scrape}
 
 \item{retry.scrape}{should it retry scrape?}
 }
