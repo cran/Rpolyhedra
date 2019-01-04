@@ -1,5 +1,30 @@
-# Scrape tests
-context("Regular solids")
+
+
+context("polyhedra- Check package db")
+test_that("Check pkg-minimal size and objects", {
+  available.polyhedra <- getAvailablePolyhedra()
+  expect_equal(
+    nrow(available.polyhedra[available.polyhedra$source == "netlib", ]),
+    119)
+  expect_equal(
+    nrow(available.polyhedra[available.polyhedra$source == "dmccooey", ]),
+    9)
+  .polyhedra <- getPolyhedraObject()
+  sources.netlib.dir <- .polyhedra$getPolyhedraSourceDir(source = "netlib")
+  polyhedra.rds.netlib <- dir(sources.netlib.dir)
+  polyhedra.rds.netlib <- polyhedra.rds.netlib[
+              grep("\\.RDS\\.zip", polyhedra.rds.netlib)]
+  expect_equal(length(polyhedra.rds.netlib), 119)
+
+  sources.dmccooey.dir <- .polyhedra$getPolyhedraSourceDir(source = "dmccooey")
+  polyhedra.rds.dmccooey <- dir(sources.dmccooey.dir)
+  polyhedra.rds.dmccooey <- polyhedra.rds.dmccooey[
+                grep("\\.RDS\\.zip", polyhedra.rds.dmccooey)]
+  expect_equal(length(polyhedra.rds.dmccooey), 9)
+})
+
+
+context("polyhedra- Regular solids")
 test_that("Scrape test rpolyhedra 5 regular solids", {
   tasks <- getPolyhedraObject()$generateTestTasks(sources = "netlib",
       polyhedra.names = c("tetrahedron",
@@ -14,18 +39,17 @@ test_that("Scrape test rpolyhedra 5 regular solids", {
   }
 })
 
-context("Scrape available polyhedra")
+context("polyhedra- Scrape available polyhedra")
 test_that("Scrape test rpolyhedra for 12% of available polyhedra", {
   tasks <- getPolyhedraObject()$
     generateTestTasks(TestTaskClass = PolyhedronTestTaskScrape.class,
     max.quant = getPercentilPolyhedraQuant(0.12, 50))
-
   for (task in tasks){
     task$run()
   }
 })
 
-context("Properties regular solids")
+context("polyhedra- Properties regular solids")
 test_that("test getting properties of scraped regular solids", {
   tetrahedron <- getPolyhedron(source = "netlib",
                                polyhedron.name = "tetrahedron")
@@ -52,7 +76,7 @@ test_that("test getting properties of scraped regular solids", {
 })
 
 
-context("Edges Consistency")
+context("polyhedra- Edges Consistency")
 test_that(paste("test check edges consistency for 12% of",
             "available polyhedra"), {
   tasks <- getPolyhedraObject()$
@@ -63,3 +87,10 @@ test_that(paste("test check edges consistency for 12% of",
     task$run()
   }
 })
+
+context("polyhedra- RGL")
+test_that("Build RGL model for polyhedra", {
+    hexagonal.prism <- getPolyhedron("netlib", "hexagonal prism")
+    rgl <- hexagonal.prism$getState()$buildRGL()
+    expect_equal(dim(rgl$vb), c(4, 36))
+  })

@@ -4,14 +4,15 @@
 \alias{polyhedronToXML}
 \title{polyhedronToXML()}
 \usage{
-polyhedronToXML(polyhedron.state.defined)
+polyhedronToXML(polyhedron.state.defined, is.transformed.vertices = TRUE)
 }
 \arguments{
-\item{polyhedron.state.defined}{the polyhedron to get a
-representation from}
+\item{polyhedron.state.defined}{the polyhedron to get a representation from}
+
+\item{is.transformed.vertices}{flag which states if vertices are in original position or transformationMatrix applied}
 }
 \value{
-a XML document, ready to be saved as a String File
+an XML document, ready to be converted to String with XML::saveXML()
 }
 \description{
 Gets an XML representation out of the polyhedron object
@@ -19,6 +20,6 @@ Gets an XML representation out of the polyhedron object
 \examples{
 #get the representation of a cube (netlib library)
 library(Rpolyhedra)
-polyhedronToXML(getPolyhedron("netlib", "cube")$getState())
+XML::saveXML(polyhedronToXML(getPolyhedron("netlib", "cube")$state))
 
 }

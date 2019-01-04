@@ -5,7 +5,7 @@
   | Release | Usage | Development |
 |:--------|:------|:------------|
  [![](https://badges.ropensci.org/157_status.svg)](https://github.com/ropensci/onboarding/issues/157)| [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-blue.svg)](https://cran.r-project.org/) | [![Travis](https://travis-ci.org/qbotics/Rpolyhedra.svg?branch=master)](https://travis-ci.org/qbotics/Rpolyhedra) |
-| [![CRAN](http://www.r-pkg.org/badges/version/Rpolyhedra)](https://cran.r-project.org/package=Rpolyhedra) 
+| [![CRAN](http://www.r-pkg.org/badges/version/Rpolyhedra)](https://cran.r-project.org/package=Rpolyhedra) | | [![codecov](https://codecov.io/gh/qbotics/Rpolyhedra/branch/master/graph/badge.svg)](https://codecov.io/gh/qbotics/Rpolyhedra) |
 
 # How to get started
 ```R
@@ -30,30 +30,42 @@ switchToFullDatabase()
 To get started execute the following commands:
 
 ```R
+# 1.  Obtain 5 regular solids
 polyhedra.2.draw <- getAvailablePolyhedra(source = "netlib")
-polyhedra.2.draw <- polyhedra.2.draw[polyhedra.2.draw$scraped.name %in%
-                                       c("tetrahedron","octahedron","cube","icosahedron","dodecahedron"),]
+polyhedra.2.draw <- polyhedra.2.draw %>% 
+                        filter(scraped.name %in%
+                            c("tetrahedron", "octahedron", "cube", 
+                               "icosahedron", "dodecahedron"))
 
+# 2. Setup colors and scales
 n <- nrow(polyhedra.2.draw)
 polyhedron.colors <- rainbow(n)
 polyhedron.scale <- 5
 
+# 3. open and setup RGL window
 open3d()
 par3d(FOV = 1)
 rgl.bg( sphere =FALSE, fogtype = "none", color=c("black"))
-rgl.viewpoint(theta = 0,phi=0,zoom=0.8,fov=1)
+rgl.viewpoint(theta = 0, phi=0, zoom=0.8, fov=1)
+
+# 4. for each polyhedron, setup rotation, position and render
 for (i in seq_len(n)) {
+  # Obtain polyhedron
   polyhedron.row <- polyhedra.2.draw[i,]
   polyhedron.name <- polyhedron.row$scraped.name
   polyhedron <- getPolyhedron(source = polyhedron.row$source, polyhedron.name)
+  
+  # Setup angles, position into transformationMatrix
   current.angle <- i/n * 2 * pi
-  tm <- rotationMatrix(current.angle, 1,0,0)
+  tm <- rotationMatrix(current.angle, 1, 0, 0)
   x.pos <- round(polyhedron.scale * sin(current.angle), 2)
   y.pos <- round(polyhedron.scale * cos(current.angle), 2)
-  tm <- tm %*% translationMatrix(x.pos,y.pos,0)
-  print(paste("Drawing ",polyhedron.name," rotated ", round(current.angle,2),
-              " in (1,0,0) axis. Translated to (",x.pos,",",y.pos,",0)",
-              " with color ",polyhedron.colors[i], sep = ""))
+  tm <- tm %*% translationMatrix(x.pos, y.pos, 0)
+  
+  # Render
+  print(paste("Drawing ", polyhedron.name, " rotated ", round(current.angle, 2),
+              " in (1,0,0) axis. Translated to (", x.pos, ",", y.pos, ",0)",
+              " with color ", polyhedron.colors[i], sep = ""))
   shape.rgl <- polyhedron$getRGLModel(transformation.matrix = tm)
   shade3d(shape.rgl, color = polyhedron.colors[i])
 }

@@ -1,7 +1,7 @@
 Package: Rpolyhedra
 Type: Package
 Title: Polyhedra Database
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
     person("Leonardo","Belen",,"leobelen@gmail.com", c("aut","com","cph"))
@@ -16,13 +16,14 @@ Suggests: knitr, rmarkdown, covr
 VignetteBuilder: knitr
 Depends: R (>= 3.4)
 Imports: futile.logger, rgl, stringr, R6, testthat, XML, digest, git2r
-Collate: 'db-lib.R' 'polyhedra-lib.R' 'ledger-lib.R'
-        'serialization-lib.R' 'zzz.R'
+Collate: 'polyhedra-lib.R' 'ledger-lib.R' 'db-lib.R' 'env-lib.R'
+        'package-lib.R' 'serialization-lib.R' 'public-lib.R'
+        'test-lib.R' 'zzz.R'
 BugReports: https://github.com/qbotics/Rpolyhedra/issues
 URL: https://github.com/qbotics/Rpolyhedra
 NeedsCompilation: no
-Packaged: 2018-11-30 22:07:24 UTC; kenarab
+Packaged: 2019-01-03 16:47:01 UTC; kenarab
 Author: Alejandro Baranek [aut, com, cre, cph],
   Leonardo Belen [aut, com, cph]
 Repository: CRAN
-Date/Publication: 2018-11-30 23:00:07 UTC
+Date/Publication: 2019-01-04 10:50:16 UTC
