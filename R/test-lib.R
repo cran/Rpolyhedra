@@ -1,4 +1,4 @@
-#' PolyhedronTestTask
+#' Polyhedron test task
 #'
 #' Is an abstract class for specifying TestTask to make R6 iteration methods
 #' like cover complaint with testhat infrastructure
@@ -28,7 +28,7 @@ public = list(
     stop(gettext("rpoly.abstract_class", domain = "R-Rpolyhedra"))
   }))
 
-#' PolyhedronTestTaskScrape
+#' Polyhedron test task scrape
 #'
 #' A Test task for comparing a new scrape with an already scraped polyhedron
 #' in the database
@@ -85,10 +85,11 @@ PolyhedronTestTaskScrape.class <- R6::R6Class("PolyhedronTestTaskScrape.class",
         self$polyhedra.db$getPolyhedron(source = source,
                                         polyhedron.name = scraped.name)
 
-      expected.polyhedron$getState()$expect_equal(scraped.polyhedron)
+      expected.polyhedron.state <- expected.polyhedron$getState()
+      expected.polyhedron.state$expectEqual(scraped.polyhedron)
     }))
 
-#' PolyhedronTestTaskEdgesConsistency
+#' Polyhedron test task edges consistency
 #'
 #' A Test task for running edges consistency test for current polyhedron
 #'
@@ -112,11 +113,11 @@ PolyhedronTestTaskEdgesConsistency.class <- R6::R6Class(
         self$polyhedra.db$getPolyhedron(source = source,
                                         polyhedron.name = self$polyhedron.name)
       edges.inconsistent <- current.polyhedron$state$checkEdgesConsistency()
-      expect_equal(nrow(edges.inconsistent), 0)
+      testthat::expect_equal(nrow(edges.inconsistent), 0)
     }))
 
 
-#' getPercentilPolyhedraQuant
+#' Get percentil polyhedra quantity
 #'
 #' Returns polyhedra quantity of parameter percentil
 #' @param percentil is the percentil which must be applied

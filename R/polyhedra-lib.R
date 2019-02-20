@@ -61,7 +61,7 @@ exportToXML = function(){
 #' @section Methods:
 #' \describe{
 #'   \item{\code{initialize(file.id, netlib.p3.lines)}}{Initializes the object, taking the file.id and PDH file as parameters}
-#'   \item{\code{extract_rows_from_label(label.number, expected.label)}}{Extracts data from the label, taking the label number and the
+#'   \item{\code{extractRowsFromLabel(label.number, expected.label)}}{Extracts data from the label, taking the label number and the
 #'   expected label as parameters}
 #'   \item{\code{getLabels()}}{Gets the label from the polyhedron}
 #'   \item{\code{scrapeNet(net.txt, offset = 0) }}{Scrape the net model}
@@ -96,7 +96,7 @@ initialize = function(file.id, netlib.p3.lines) {
     self$labels.map <- list()
     self
 },
-extract_rows_from_label = function(label.number, expected.label) {
+extractRowsFromLabel = function(label.number, expected.label) {
     observer.label <- self$netlib.p3.lines[self$labels.rows[label.number]]
     observer.label <- sub("\\:", "", observer.label)
     if (observer.label != expected.label) {
@@ -235,7 +235,7 @@ getDataFromLabel = function(label) {
     r <- self$labels.map[[label]]
     ret <- NULL
     if (!is.null(r)) ret <- self$netlib.p3.lines[
-              self$extract_rows_from_label(r, label)]
+              self$extractRowsFromLabel(r, label)]
     ret
 },
 getName = function() {
@@ -387,7 +387,7 @@ PolyhedronStateDmccoeyScraper.class <- R6::R6Class(
       for (vertex.line in vertices.lines){
           vertex.name <- sub(self$regexp.vertex, "\\1", vertex.line)
           vertex.row <- as.numeric(sub("^V", "", vertex.name)) + 1
-          vertex.def <- str_extract(vertex.line, regexp.vertex.def)
+          vertex.def <- stringr::str_extract(vertex.line, regexp.vertex.def)
           vertex.coords <- strsplit(vertex.def, split = ",")[[1]]
           vertex.coords <- gsub("\\(|\\)", "", vertex.coords)
           self$vertices[vertex.row, ] <- vertex.coords
@@ -540,7 +540,7 @@ norm <- function(vector){
 #'   the polyhedron object}
 #'   \item{\code{serialize()}}{Gets a list representation out
 #'   of the polyhedron object}
-#'   \item{\code{expect_equal()}}{Function which test equal values
+#'   \item{\code{expectEqual()}}{Function which test equal values
 #'   for all fields using serialize function}
 #'
 #' }
@@ -897,17 +897,18 @@ buildRGL = function(transformation.matrix = NULL) {
   exportToXML = function() {
       polyhedronToXML(self)
   },
-  expect_equal = function(polyhedron){
-
+  expectEqual = function(polyhedron){
     compatible <- !is.null(polyhedron$state$serialize)
     if (compatible){
       self.serialized <- self$serialize()
       polyhedron.serialized <- polyhedron$getState()$serialize()
       #check all same fields
-      expect_equal(names(polyhedron.serialized), names(self.serialized))
+      testthat::expect_equal(names(polyhedron.serialized),
+                              names(self.serialized))
       #check values for all fields
       for (name in names(self.serialized)){
-        expect_equal(self.serialized[[name]], polyhedron.serialized[[name]])
+        testthat::expect_equal(self.serialized[[name]],
+                                polyhedron.serialized[[name]])
       }
     }
     else{
@@ -1084,9 +1085,9 @@ getErrors = function(){
 },
 checkProperties = function(expected.vertices, expected.faces){
     faces <- self$getSolid()
-    expect_equal(length(faces), expected.faces)
+    testthat::expect_equal(length(faces), expected.faces)
     vertices.solid <- which(row.names(self$state$vertices) %in% unlist(faces))
-    expect_equal(length(vertices.solid), expected.vertices)
+    testthat::expect_equal(length(vertices.solid), expected.vertices)
     #check Edges consistency
     self$state$checkEdgesConsistency()
     self

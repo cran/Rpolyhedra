@@ -5,27 +5,27 @@ setup(assign(".tmp.package.dir",
           file.path(getDataDir(data.env = "PACKAGE"), ".tmp"),
           env = parent.frame()))
 setup(assign(".tmp.home.dir",
-             file.path(getUserSpace(), ".tmp"),
+             file.path(tempdir(), ".tmp"),
              env = parent.frame()))
 setup(dir.create(.tmp.package.dir, recursive = TRUE, showWarnings = FALSE))
 setup(dir.create(.tmp.home.dir, recursive = TRUE, showWarnings = FALSE))
 
-test_that("test on package lib functions", {
+testthat::test_that("test on package lib functions", {
   testthat::expect(!is.null(getPreloadedDataFilename()),
                    failure_message = "getPreloadedDataFilename cannot be null")
   testthat::expect(!is.null(updatePolyhedraDatabase()),
                    failure_message = "updatePolyhedraDatabase cannot be null")
-  with_mock(
+  testthat::with_mock(
        "Rpolyhedra::getUserSpace" = function(){
             .tmp.home.dir
          },
        testthat::expect(
-       with_mock(
+         testthat::with_mock(
          "Rpolyhedra::getDataEnv" = function(){
            "HOME"
            }
          ,
-         with_mock(
+         testthat::with_mock(
            "Rpolyhedra::checkDatabaseVersion" = function(){
              "UPDATE"
              }

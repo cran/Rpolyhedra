@@ -1,4 +1,4 @@
-#' PolyhedraDatabase
+#' Polyhedra database
 #'
 #' Scrapes all polyhedra in data folder to save a representation which
 #' is accesible by the final users upon call to \code{getPolyhedron()}.
@@ -418,12 +418,12 @@ PolyhedraDatabase.class <- R6::R6Class("PolyhedraDatabase",
                                  obs = obs)
         if (status == "testing"){
           tryCatch({
-            res <- expect_true(self$existsPolyhedron(source = source,
+            res <- testthat::expect_true(self$existsPolyhedron(source = source,
                       polyhedron.name = polyhedron.name))
             db.polyhedron <- self$getPolyhedron(source = source,
                       polyhedron.name = polyhedron.name)
             scraped.polyhedron$state$inferEdges()
-            expect_equal(scraped.polyhedron, db.polyhedron)
+            testthat::expect_equal(scraped.polyhedron, db.polyhedron)
             status <- "tested"
           },
           error = function(e){
