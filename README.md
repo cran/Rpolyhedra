@@ -1,4 +1,4 @@
- # Rpolyhedra
+# Rpolyhedra
 
  <!-- Polyhedra database scraped from publically available sources using R6 objects and 'rgl' visualizing capabilities. -->
 
@@ -6,13 +6,14 @@
 
  1. A module to scrape the polyhedra for the different sources found with features for incremental correction of issues found and to be found in scraping process.
  1. A database of the scraped polyhedra.
- 1. An R6 polyhedron representation with 'rgl' package visualizing capabilites.
+ 1. An R6 polyhedron representation with 'rgl' package visualizing capabilities.
 
 
 | Release | Usage | Development |
 |:--------|:------|:------------|
-| [![](https://badges.ropensci.org/157_status.svg)](https://github.com/ropensci/onboarding/issues/157)| [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-blue.svg)](https://cran.r-project.org/) | [![Travis](https://travis-ci.org/qbotics/Rpolyhedra.svg?branch=master)](https://travis-ci.org/qbotics/Rpolyhedra) |
-| [![CRAN](http://www.r-pkg.org/badges/version/Rpolyhedra)](https://cran.r-project.org/package=Rpolyhedra) | | [![codecov](https://codecov.io/gh/qbotics/Rpolyhedra/branch/master/graph/badge.svg)](https://codecov.io/gh/qbotics/Rpolyhedra) |
+| [![](https://badges.ropensci.org/157_status.svg)](https://github.com/ropensci/onboarding/issues/157)| [![minimal R version](https://img.shields.io/badge/R%3E%3D-3.4.0-blue.svg)](https://cran.r-project.org/) | [![Travis](https://travis-ci.org/ropensci/Rpolyhedra.svg?branch=master)](https://travis-ci.org/ropensci/Rpolyhedra) |
+| [![CRAN](http://www.r-pkg.org/badges/version/Rpolyhedra)](https://cran.r-project.org/package=Rpolyhedra) | | [![codecov](https://codecov.io/gh/ropensci/Rpolyhedra/branch/master/graph/badge.svg)](https://codecov.io/gh/ropensci/Rpolyhedra) |
+|||[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)|
 
 # How to get started
 ```R
@@ -24,7 +25,7 @@ install.packages("Rpolyhedra")
 Install the R package using the following commands on the R console:
 
 ```R
-devtools::install_github("qbotics/Rpolyhedra", build_opts = NULL)
+devtools::install_github("ropensci/Rpolyhedra", build_opts = NULL)
 library(Rpolyhedra)
 # if want to switch to fullDB in user filespace, it will download the full database
 switchToFullDatabase()
@@ -35,6 +36,10 @@ switchToFullDatabase()
 To get started execute the following commands:
 
 ```R
+# 0.  Load libraries
+library(rgl)
+library(dplyr)
+library(Rpolyhedra)
 # 1.  Obtain 5 regular solids
 polyhedra.2.draw <- getAvailablePolyhedra(source = "netlib")
 polyhedra.2.draw <- polyhedra.2.draw %>%
@@ -81,15 +86,15 @@ for (i in seq_len(n)) {
  Includes 142 polyhedra definitions.
  The PHD format was created to describe the geometric polyhedron definitions derived mathematically by Andrew Hume and by the Kaleido program of Zvi Har'El.
 
- PHD files were generated using [poly2](http://www.netlib.org/poly2/readme) library (no longer mantained). Althought the code is available, specific programming skills are required to run it.
+ PHD files were generated using [poly2](http://www.netlib.org/poly2/readme) library (no longer maintained). Although the code is available, specific programming skills are required to run it.
 
-PDH files can be found in `extdata/www.netlib.org/polyhedra/index.html`
+PHD files can be found in `extdata/www.netlib.org/polyhedra/index.html`
 
 ### dmccooey
 Includes 767 polyhedra definitions.
 The [polyhedra database](http://dmccooey.com/polyhedra/) built by David Mccooey has an open format which has been scraped to feed RPolyhedra database
 
-dmccooney files can be found in `extdata/dmccooey.com/polyhedra/`
+dmccooey files can be found in `extdata/dmccooey.com/polyhedra/`
 
 # Troubleshooting
 
@@ -104,7 +109,7 @@ Windows
 
 run end user CRAN version
 
-OSX brew
+macOS brew
 
 ```bash
 brew install openssl
@@ -123,3 +128,6 @@ sudo apt-get install r-cran-rgl
 ```
 
 Please note that the 'Rpolyhedra' project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+
+
+[![ropensci_footer](https://ropensci.org/public_images/ropensci_footer.png)](https://ropensci.org)

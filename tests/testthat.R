@@ -1,8 +1,9 @@
-library(testthat)
 library(Rpolyhedra)
 library(stringr)
 library(futile.logger)
 library(rgl)
+library(geometry)
+library(testthat)
 
 
 #Change threshold to ERROR. Comment out/change if verbosity required for development
