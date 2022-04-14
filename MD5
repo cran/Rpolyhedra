@@ -1,5 +1,5 @@
 960b6e781d73297e65edf62ee53a514d *ChangeLog
-e1df7bb9cfb2818364148167cd427c1a *DESCRIPTION
+de535522d09fb6a047072ec04f395fb1 *DESCRIPTION
 84fa3a81435b6e15ccddc422ecd8bccb *LICENSE
 22fa0fb5f1115287b170a2d249dd883c *NAMESPACE
 cca9edf50177f5b83c31df30c1c50def *NEWS.md
@@ -9,17 +9,17 @@ eea97e7e0192895e5ce168b98998d727 *R/dev/pkgnet-dev.R
 68b329da9893e34099c7d8ad5cb9c940 *R/dev/report-draft.R
 0daa55ebb40cbf5b61d1f7b53f009313 *R/env-lib.R
 029a2cb7de8f8fa1fcc9c80975406037 *R/ledger-lib.R
-bfc68e4e191764f44e3f3d05d99daab2 *R/package-lib.R
+18bdb02128a7b8ac621e7e8110ae2f9d *R/package-lib.R
 640744b5f92be22c5a8238c99900172c *R/polyhedra-lib.R
 2507bd463fd0e1e966e0e6950cc77c52 *R/public-lib.R
 8fa852f9ac04d991f20bfc98e61108f8 *R/serialization-lib.R
 3db2a4922e29aca500eff4bff35c2581 *R/test-lib.R
-6b672dc5b04408e7b6ace927617050c8 *R/zzz.R
+075566bfa7903b0f13a05aaff0bd72ca *R/zzz.R
 b1404a35e1e24d025bfd3a0ec533cef3 *README.md
 f99a659cbef8f8d9e9cd22c52fd3c9e6 *build/vignette.rds
 05477b8c31e5749a5b9fcd0d5c42f2b0 *inst/doc/Rpolyhedra.R
 9e271c533d799baa5ae92cb2d6e6b7fd *inst/doc/Rpolyhedra.Rmd
-922ed773b923f74e825e1752ff8564a3 *inst/doc/Rpolyhedra.html
+26bdd912d55980e58ececd04a5bc928c *inst/doc/Rpolyhedra.html
 864a16a158319f8273e001a2ba622a1a *inst/extdata/RpolyhedraExplorerScreenshot.png
 bb1dab17d27c6126dac79ebda3fc957c *inst/extdata/polyhedra.RDS
 539e30773d244bcd8b3e15e7da96ef28 *inst/extdata/polyhedra.preloaded.data.csv
@@ -279,7 +279,7 @@ aa6ba399a4d9d18e841ba49526c87320 *inst/extdata/sources/www.netlib.org/polyhedra/
 17324b41a1e84a536991d53abf1bdd6a *inst/extdata/sources/www.netlib.org/polyhedra/97
 0429c08bc84b423759e3e015738c0e18 *inst/extdata/sources/www.netlib.org/polyhedra/98
 dc42ddeef8943d7c861833216dfd35eb *inst/extdata/sources/www.netlib.org/polyhedra/99
-81b7ee5ce7df955bad631aada4875d17 *inst/extdata/version
+ccd2199e65f4d264c867dcd8a2943ade *inst/extdata/version
 d9554e838a23227c38c1dc175169f0fe *inst/genchangelog.sh
 655f92359d0261d8c74a3e66ff7ec9d3 *inst/po/en/LC_MESSAGES/R-Rpolyhedra.mo
 2a9fa18b64121babb13e2082293960f8 *inst/po/en@quot/LC_MESSAGES/R-Rpolyhedra.mo

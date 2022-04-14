@@ -1,7 +1,7 @@
 Package: Rpolyhedra
 Type: Package
 Title: Polyhedra Database
-Version: 0.5.0
+Version: 0.5.1
 Language: en-US
 Authors@R: c(
   person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
@@ -26,11 +26,11 @@ URL: https://docs.ropensci.org/Rpolyhedra/,
         https://github.com/ropensci/Rpolyhedra
 StagedInstall: TRUE
 NeedsCompilation: no
-Packaged: 2022-04-13 23:56:12 UTC; kenarab
+Packaged: 2022-04-14 20:12:58 UTC; kenarab
 Author: Alejandro Baranek [aut, com, cre, cph],
   Leonardo Belen [aut, com, cph],
   qbotics [cph],
   Barret Schloerke [rev],
   Lijia Yu [rev]
 Repository: CRAN
-Date/Publication: 2022-04-14 12:42:35 UTC
+Date/Publication: 2022-04-14 23:42:28 UTC
