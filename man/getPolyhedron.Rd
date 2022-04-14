@@ -18,12 +18,14 @@ polyhedron R6 object
 \description{
 Gets a polyhedron from the database. It returns an R6 Class
 with all its characteristics and functions.
-The object returned, of type Polyhedron.class, allows to the
+The object returned, of type Polyhedron, allows to the
 user to get access to all the functionality provided.
 }
 \examples{
-tetrahedron <- getPolyhedron(source = 'netlib',
-       polyhedron.name = 'tetrahedron')
+tetrahedron <- getPolyhedron(
+  source = "netlib",
+  polyhedron.name = "tetrahedron"
+)
 
 # returns name of polyhedra
 tetrahedron$getName()
@@ -42,6 +44,7 @@ tetrahedron.state$getSolid()
 
 # List of faces of net representation (2D)
 tetrahedron.state$getNet()
+
 }
 \seealso{
 getAvailablePolyhedra, getAvailableSources

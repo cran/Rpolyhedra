@@ -1,7 +1,7 @@
 #' Get a polyhedra object
 #'
 #' Return the polyhedra database handler.
-#' @seealso PolyhedraDatabase.class
+#' @seealso PolyhedraDatabase
 #'
 #' @return .polyhedra
 #' @export
@@ -20,16 +20,17 @@ getPolyhedraObject <- function() {
 #' @param sources.config the sources that will be used by the function
 #' @return polyhedra db object
 scrapePolyhedra <- function(scrape.config,
-                source.filenames = NULL,
-                sources.config = getPackageEnvir(".available.sources")) {
-  scrapePolyhedraSources(max.quant.config.schedule =
-               scrape.config[["max.quant.config.schedule"]],
-             max.quant.scrape = scrape.config[["max.quant.scrape"]],
-             time2scrape.source = scrape.config[["time2scrape.source"]],
-             sources.config = sources.config,
-             source.filenames = source.filenames,
-             retry.scrape = scrape.config[["retry.scrape"]])
-
+                            source.filenames = NULL,
+                            sources.config = getUserEnvir(".available.sources")) {
+  scrapePolyhedraSources(
+    max.quant.config.schedule =
+      scrape.config[["max.quant.config.schedule"]],
+    max.quant.scrape = scrape.config[["max.quant.scrape"]],
+    time2scrape.source = scrape.config[["time2scrape.source"]],
+    sources.config = sources.config,
+    source.filenames = source.filenames,
+    retry.scrape = scrape.config[["retry.scrape"]]
+  )
 }
 
 #' Scrape polyhedra sources
@@ -47,42 +48,49 @@ scrapePolyhedra <- function(scrape.config,
 #' @return polyhedra db object
 #' @usage
 #'     scrapePolyhedraSources(sources.config =
-#'          getPackageEnvir(".available.sources"),
+#'          getUserEnvir(".available.sources"),
 #'     max.quant.config.schedule = 0,
 #'     max.quant.scrape = 0, time2scrape.source = 30,
 #'     source.filenames = NULL, retry.scrape = FALSE)
 scrapePolyhedraSources <- function(sources.config =
-                                     getPackageEnvir(".available.sources"),
+                                     getUserEnvir(".available.sources"),
                                    max.quant.config.schedule = 0,
                                    max.quant.scrape = 0,
                                    time2scrape.source = 30,
                                    source.filenames = NULL,
-                                   retry.scrape = FALSE){
-  futile.logger::flog.debug(paste("Scheduling",
-                                  max.quant.config.schedule,
-                                  "polyhedra for scraping"))
-  getPolyhedraObject()$schedulePolyhedraSources(sources.config =
-                          sources.config,
-                        source.filenames =
-                          source.filenames,
-                        max.quant = max.quant.config.schedule,
-                        save.on.change = TRUE)
-  if (retry.scrape){
+                                   retry.scrape = FALSE) {
+  futile.logger::flog.debug(paste(
+    "scrapePolyhedraSources",
+    "max.quant.config.schedule =", max.quant.config.schedule,
+    "max.quant.scrape =", max.quant.scrape,
+    "time2scrape.source =", time2scrape.source
+  ))
+  getPolyhedraObject()$schedulePolyhedraSources(
+    sources.config =
+      sources.config,
+    source.filenames =
+      source.filenames,
+    max.quant = max.quant.config.schedule,
+    save.on.change = TRUE
+  )
+  if (retry.scrape) {
     mode <- "scrape.retry"
-  }
-  else {
+  } else {
     mode <- "scrape.queued"
   }
-  futile.logger::flog.debug(paste("Scraping",
-                                  max.quant.scrape,
-                                  "polyhedra up to",
-                                  time2scrape.source, "seconds"))
-  getPolyhedraObject()$scrape(mode = mode,
-                              max.quant = max.quant.scrape,
-                              time2scrape.source = time2scrape.source,
-                              save.on.change = TRUE,
-                              skip.still.queued = TRUE
-                              )
+  futile.logger::flog.debug(paste(
+    "Scraping",
+    max.quant.scrape,
+    "polyhedra up to",
+    time2scrape.source, "seconds"
+  ))
+  getPolyhedraObject()$scrape(
+    mode = mode,
+    max.quant = max.quant.scrape,
+    time2scrape.source = time2scrape.source,
+    save.on.change = TRUE,
+    skip.still.queued = TRUE
+  )
   getPolyhedraObject()
 }
 
@@ -97,17 +105,19 @@ scrapePolyhedraSources <- function(sources.config =
 #' @return sources string vector, which can be obtained from getAvailableSources()
 #' @export
 #' @examples
-#' #gets all sources in the database
-#'available.sources <- getAvailableSources()
+#' # gets all sources in the database
+#' available.sources <- getAvailableSources()
 #'
-#'#returns all polyhedra from all sources
-#'available.polyhedra <- getAvailablePolyhedra(sources=available.sources)
+#' # returns all polyhedra from all sources
+#' available.polyhedra <- getAvailablePolyhedra(sources = available.sources)
 #'
-#'#search within the polyhedron names from all sources
-#'cubes <- getAvailablePolyhedra(sources=available.sources,
-#'         search.string="cube")
-#'cubes
-getAvailableSources <- function(){
+#' # search within the polyhedron names from all sources
+#' cubes <- getAvailablePolyhedra(
+#'   sources = available.sources,
+#'   search.string = "cube"
+#' )
+#' cubes
+getAvailableSources <- function() {
   getPolyhedraObject()$getAvailableSources()
 }
 
@@ -126,28 +136,30 @@ getAvailableSources <- function(){
 #'     getAvailablePolyhedra(sources, search.string)
 #' @examples
 #'
-#' #gets all polyhedra in the database
-#'available.polyhedra <- getAvailablePolyhedra()
+#' # gets all polyhedra in the database
+#' available.polyhedra <- getAvailablePolyhedra()
 #'
-#'#returns all polyhedra from a given source, in this case, netlib
-#'available.netlib.polyhedra <- getAvailablePolyhedra(sources="netlib")
+#' # returns all polyhedra from a given source, in this case, netlib
+#' available.netlib.polyhedra <- getAvailablePolyhedra(sources = "netlib")
 #'
-#'#search within the polyhedron names
+#' # search within the polyhedron names
 #'
-#'cube <- getAvailablePolyhedra(sources="netlib",search.string="cube")
-#'cube
+#' cube <- getAvailablePolyhedra(sources = "netlib", search.string = "cube")
+#' cube
 getAvailablePolyhedra <- function(sources =
-                      names(getPackageEnvir(".available.sources")),
-                      search.string = NULL){
-  getPolyhedraObject()$getAvailablePolyhedra(sources = sources,
-                      search.string = search.string)
+                                    names(getUserEnvir(".available.sources")),
+                                  search.string = NULL) {
+  getPolyhedraObject()$getAvailablePolyhedra(
+    sources = sources,
+    search.string = search.string
+  )
 }
 
 #' Get polyhedron
 #'
 #' Gets a polyhedron from the database. It returns an R6 Class
 #' with all its characteristics and functions.
-#' The object returned, of type Polyhedron.class, allows to the
+#' The object returned, of type Polyhedron, allows to the
 #' user to get access to all the functionality provided.
 #'
 #' @seealso getAvailablePolyhedra, getAvailableSources
@@ -159,8 +171,10 @@ getAvailablePolyhedra <- function(sources =
 #' @return polyhedron R6 object
 #' @export
 #' @examples
-#' tetrahedron <- getPolyhedron(source = 'netlib',
-#'        polyhedron.name = 'tetrahedron')
+#' tetrahedron <- getPolyhedron(
+#'   source = "netlib",
+#'   polyhedron.name = "tetrahedron"
+#' )
 #'
 #' # returns name of polyhedra
 #' tetrahedron$getName()
@@ -179,12 +193,14 @@ getAvailablePolyhedra <- function(sources =
 #'
 #' # List of faces of net representation (2D)
 #' tetrahedron.state$getNet()
-
+#'
 getPolyhedron <- function(source = "netlib", polyhedron.name) {
   ret <- NULL
-  if (exists(".polyhedra", envir = getPackageEnvir("RpolyhedraEnv"))) {
-    ret <- getPolyhedraObject()$getPolyhedron(source = source,
-                                              polyhedron.name = polyhedron.name)
+  if (exists(".polyhedra", envir = getUserEnvir("RpolyhedraEnv"))) {
+    ret <- getPolyhedraObject()$getPolyhedron(
+      source = source,
+      polyhedron.name = polyhedron.name
+    )
   }
   ret
 }
@@ -201,7 +217,7 @@ getPolyhedron <- function(source = "netlib", polyhedron.name) {
 #'     switchToFullDatabase(env=NA)
 #' @return .data.env
 #' @export
-switchToFullDatabase <- function(env = NA){
+switchToFullDatabase <- function(env = NA) {
   retVal <- selectDataEnv(env = env)
   if (retVal == "NOT_AVAILABLE") {
     futile.logger::flog.error("Full Database not available yet.")

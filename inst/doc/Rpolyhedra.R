@@ -1,17 +1,17 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 library(rgl)
-library(dplyr)
 library(Rpolyhedra)
+library(dplyr)
 setupKnitr()
 
-## ----availablePolyhedra--------------------------------------------------
+## ----availablePolyhedra-------------------------------------------------------
 #show only the first 10 polyhedra.
 head(getAvailablePolyhedra(), n = 10)
 
-## ----getPolyhedron-------------------------------------------------------
+## ----getPolyhedron------------------------------------------------------------
 cube <- getPolyhedron(source = "netlib", polyhedron.name = "cube")
 
-## ----demo, webgl=TRUE----------------------------------------------------
+## ----demo, webgl=TRUE---------------------------------------------------------
 # 1.  Obtain 5 regular solids
 polyhedra.2.draw <- getAvailablePolyhedra(source = "netlib")
 polyhedra.2.draw <- polyhedra.2.draw %>%

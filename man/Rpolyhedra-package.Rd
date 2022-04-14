@@ -16,12 +16,13 @@ A polyhedra database scraped from:
          visualizing capabilities. The PHD format was created to describe the geometric
          polyhedra definitions derived mathematically <http://www.netlib.org/polyhedra/>
          by Andrew Hume and by the Kaleido program of Zvi Har'El.
-   \item http://dmccooey.com/Polyhedra: Polyhedra text datafiles.
+   \item http://dmccooey.com/Polyhedra/: Polyhedra text datafiles.
 }
 }
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://docs.ropensci.org/Rpolyhedra/}
   \item \url{https://github.com/ropensci/Rpolyhedra}
   \item Report bugs at \url{https://github.com/ropensci/Rpolyhedra/issues}
 }
@@ -37,6 +38,7 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item  qbotics \email{qbotics6@gmail.com} [copyright holder]
   \item Barret Schloerke \email{schloerke@gmail.com} [reviewer]
   \item Lijia Yu \email{yu@lijiayu.net} [reviewer]
 }

@@ -1,7 +1,21 @@
+Rpolyhedra 0.5
+============
+
+### MINOR IMPROVEMENTS
+* CI moved to github actions
+* Updated documentation
+
+Rpolyhedra 0.4.4
+============
+
+### MINOR IMPROVEMENTS
+* Roxygen changed the way R6 classes are documented
+* Problems in testhat with some tests
+
 Rpolyhedra 0.4.2
 ============
 
-First version published using devtools::release() on [rOpenSci.org](http://www.rOpenSci.org). 
+First version published using devtools::release() on [rOpenSci.org](https://ropensci.org/). 
 
 ### MINOR IMPROVEMENTS
 
@@ -15,11 +29,11 @@ First version published using devtools::release() on [rOpenSci.org](http://www.r
 Rpolyhedra 0.4.1
 ============
 
-First version published on [rOpenSci.org](http://www.rOpenSci.org). 
+First version published on [rOpenSci.org](https://ropensci.org/). 
 
 ### MINOR IMPROVEMENTS
 
-* Complies with all the prerequisites of rOpenSci and applies the suggestions made by rOpenSci reviwers. 
+* Complies with all the prerequisites of rOpenSci and applies the suggestions made by rOpenSci reviewers. 
 * Fixes a test that writes on user space.
 * Integrates with codecov.io, which allows for better test coverage. 
 * Updated examples.
