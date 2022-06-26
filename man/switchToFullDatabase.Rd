@@ -4,10 +4,12 @@
 \alias{switchToFullDatabase}
 \title{Switch to full database}
 \usage{
-switchToFullDatabase(env=NA)
+switchToFullDatabase(env = NA, logger = lgr)
 }
 \arguments{
-\item{env}{The environment to run on, can be PACKAGE,
+\item{env}{The environment to run on, can be PACKAGE,}
+
+\item{logger}{logger for inheriting threshold from calling class/function
 HOME or NA. If NA, it asks the user for a an Environment.}
 }
 \value{

@@ -2,9 +2,9 @@
 #' @description
 #' This abstract class provide the basis from which every polyhedron state class derivate.
 #' @importFrom R6 R6Class
+#' @import lgr
 #' @docType class
 #' @author ken4rab
-#'
 PolyhedronState <- R6::R6Class("PolyhedronState",
   public = list(
     #' @field source polyhedron definition source
@@ -13,6 +13,8 @@ PolyhedronState <- R6::R6Class("PolyhedronState",
     file.id = NA,
     #' @field errors Errors string
     errors = "",
+    #' @field logger class logger
+    logger = NA,
     #' @description
     #' Create a polyhedronState object
     #' @param source the source file
@@ -21,14 +23,16 @@ PolyhedronState <- R6::R6Class("PolyhedronState",
     initialize = function(source, file.id) {
       self$source <- source
       self$file.id <- file.id
+      self$logger <- genLogger(self)
       self
     },
     #' '@description
     #' Adds an error to the error string and log it as info
     #' @param current.error the error to add
     addError = function(current.error) {
+      logger <- getLogger(self)
       self$errors <- paste(self$errors, current.error)
-      futile.logger::flog.error(current.error)
+      logger$error(current.error)
       self$errors
     },
     #' @description
@@ -76,7 +80,7 @@ PolyhedronState <- R6::R6Class("PolyhedronState",
 #' @description
 #' Scrapes polyhedra from a PHD file format.
 #'
-#' @importFrom futile.logger flog.info
+#' @import lgr
 #' @importFrom stringr str_extract
 #' @importFrom R6 R6Class
 #' @docType class
@@ -185,6 +189,7 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
     #' @param vertices.txt vector containing netlib format vertices
     #' @return data.frame containing netlib vertices
     scrapeVertices = function(vertices.txt) {
+      logger <- getLogger(self)
       first.line <- strsplit(vertices.txt[1], split = " ")[[1]]
       vertices.count <- as.numeric(first.line[1])
       max.degree <- as.numeric(first.line[2])
@@ -222,20 +227,18 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
           cf.inbrackets <- stringr::str_extract(cf, "\\[([:graph:]*)\\]")
           cf.inbrackets <- sub("\\[", "", cf.inbrackets)
           cf.inbrackets <- sub("\\]", "", cf.inbrackets)
-          futile.logger::flog.debug(paste("parsing vertex ",
-            v,
-            "/",
-            n.vertices,
-            " ",
-            paste(cf.outbrackets,
-              collapse = ","
-            ),
-            " ",
-            paste(cf.inbrackets,
-              collapse = ","
-            ),
-            sep = ""
-          ))
+          logger$debug("parsing vertex ",
+            v = v,
+            total = n.vertices,
+            cf.outbrackets =
+              paste(cf.outbrackets,
+                collapse = ","
+              ),
+            cf.inbrackets =
+              paste(cf.inbrackets,
+                collapse = ","
+              )
+          )
           vertices[cont, "Pos3D_1"] <- cf.outbrackets[1]
           vertices[cont, "Pos3D_2"] <- cf.outbrackets[2]
           vertices[cont, "Pos3D_3"] <- cf.outbrackets[3]
@@ -255,6 +258,7 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
     #' @param vertices.txt vector containing netlib format vertices
     #' @return data.frame containing netlib vertices
     setupLabelsOrder = function() {
+      logger <- getLogger(self)
       for (r in seq_len(length(self$labels.rows))) {
         p3.line <- self$labels.rows[r]
         current.label <- self$netlib.p3.lines[p3.line]
@@ -270,24 +274,24 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
           ))
         }
         self$labels.map[[current.label]] <- r
-        futile.logger::flog.debug(paste(
+        logger$debug(
           "Assign order",
-          r,
-          "row",
-          self$labels.rows[r],
-          "to",
-          current.label
-        ))
+          r = r,
+          row = self$labels.rows[r],
+          to = current.label
+        )
       }
-      futile.logger::flog.debug(paste(names(self$labels.map),
-        lapply(self$labels.map,
+      logger$debug("Labels",
+        map = names(self$labels.map),
+        labels.map = paste(lapply(self$labels.map,
           FUN = function(x) {
             self$netlib.p3.lines[self$labels.rows[x]]
           }
         ),
         collapse = "|",
         sep = "=>"
-      ))
+        )
+      )
       self$labels.map
     },
     #' @description
@@ -314,6 +318,7 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
     #' scrape Netlib polyhedron definition
     #' @return A new PolyhedronStateDefined object.
     scrape = function() {
+      logger <- getLogger(self)
       # first check labels
       self$labels.rows <- grep("\\:", self$netlib.p3.lines)
       if (nchar(self$errors) > 0) {
@@ -327,11 +332,11 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
       self$setupLabelsOrder()
       name <- self$getDataFromLabel("name")
       file.id <- self$getDataFromLabel("number")
-
-      futile.logger::flog.debug(paste(
+      logger$debug(
         "Scraping polyhedron",
-        file.id, name
-      ))
+        file.id = file.id,
+        name = name
+      )
 
       symbol <- self$getDataFromLabel("symbol")
       if (is.null(symbol)) {
@@ -394,7 +399,7 @@ PolyhedronStateNetlibScraper <- R6::R6Class(
 #' Scrapes polyhedra from a dmccooey file format
 #'
 #' @docType class
-#' @importFrom  futile.logger flog.info
+#' @import lgr
 #' @importFrom R6 R6Class
 #' @docType class
 #' @author ken4rab
@@ -553,6 +558,7 @@ PolyhedronStateDmccooeyScraper <- R6::R6Class(
     #' scrape Dmccooey polyhedron definition
     #' @return A new PolyhedronStateDefined object.
     scrape = function() {
+      logger <- getLogger(self)
       stopifnot(!is.na(self$regexp.values))
 
       # preprocess
@@ -564,12 +570,11 @@ PolyhedronStateDmccooeyScraper <- R6::R6Class(
       )
 
       name <- self$polyhedra.dmccooey.lines[1]
-      futile.logger::flog.debug(paste(
+      logger$debug(
         "Scraping dmccooey polyhedron",
-        self$file.id,
-        name
-      ))
-
+        file.id = self$file.id,
+        name = name
+      )
       # values
 
       self$labels.map[["values"]] <- grep(
@@ -654,7 +659,7 @@ norm <- function(vector) {
 #' Polyhedron State scraped and defined
 #'
 #'
-#' @importFrom futile.logger flog.debug
+#' @import lgr
 #' @importFrom rgl identityMatrix
 #' @importFrom rgl transform3d
 #' @importFrom rgl asHomogeneous
@@ -809,6 +814,18 @@ PolyhedronStateDefined <- R6::R6Class(
         normalized.size <- self$getNormalizedSize(1)
         self$vertices.centered <- self$vertices.centered[, 1:3] * normalized.size
       }
+      else{
+        # If no size normalization, vertices.centered = vertices.id.3d
+        vapply(private$vertices.id.3d,
+               FUN = function(x) {
+                 self$vertices.centered[x, 1:3] <-
+                   self$vertices.centered[x, 1:3] + mass.center
+                 TRUE
+               },
+               FUN.VALUE = logical(1)
+        )
+
+      }
       self
     },
     #' @description
@@ -914,6 +931,7 @@ PolyhedronStateDefined <- R6::R6Class(
     #' Triangulates the polyhedron
     #' @param force forces the triangulation.
     triangulate = function(force = FALSE) {
+      logger <- getLogger(self)
       if (is.null(self$vertices.centered)) {
         stop(paste("vertices.centered must be called before triangulate"))
       }
@@ -968,16 +986,15 @@ PolyhedronStateDefined <- R6::R6Class(
             }
           }
           ret[[f]] <- tmesh
-          futile.logger::flog.debug(paste(
-            "triangulated f",
-            f,
-            length(face),
-            "original",
-            paste(face, collapse = ","),
-            "triangulated", paste(tmesh,
+          logger$debug(
+            "triangulated",
+            f = f,
+            length = length(face),
+            original = paste(face, collapse = ","),
+            triangulated = paste(tmesh,
               collapse = ","
             )
-          ))
+          )
           f <- f + 1
         }
         private$solid.triangulated <- ret
@@ -1062,6 +1079,7 @@ PolyhedronStateDefined <- R6::R6Class(
     #' Build 'rgl'
     #' @param transformation.matrix the transformation matrix
     buildRGL = function(transformation.matrix = NULL) {
+      logger <- getLogger(self)
       if (is.null(transformation.matrix)) {
         transformation.matrix <- self$transformation.matrix
       } else {
@@ -1084,10 +1102,10 @@ PolyhedronStateDefined <- R6::R6Class(
         vertices <- as.matrix(cbind(transformed.vertices, 1))
         ret <- rgl::tmesh3d(c(t(vertices)), unlist(triangulated.solid))
       } else {
-        futile.logger::flog.info(paste(
-          "For", self$name,
-          " solid definition not found"
-        ))
+        logger$info(
+          "Solid definition not found",
+          name = self$name
+        )
         self$addError("solid definition not found")
       }
       ret
@@ -1222,6 +1240,8 @@ Polyhedron <- R6::R6Class("Polyhedron",
     file.id = NA,
     #' @field state Polyhedron state
     state = NA,
+    #' @field logger class logger
+    logger = NA,
     #' @description
     #' Create a polyhedronState object
     #' @param state polyhedron state object
@@ -1232,6 +1252,7 @@ Polyhedron <- R6::R6Class("Polyhedron",
       if (!is.null(state)) {
         self$state <- state
       }
+      self$logger <- genLogger(self)
       self
     },
     #' @description
@@ -1306,7 +1327,10 @@ Polyhedron <- R6::R6Class("Polyhedron",
     #' @param transformation.matrix transformation matrix parameter
     #' @return An tmesh3d object
     getRGLModel = function(transformation.matrix = NULL) {
-      futile.logger::flog.debug(paste("drawing", self$getName()), "model")
+      logger <- getLogger(self)
+      logger$debug("drawing",
+        name = self$getName()
+      )
       self$state$buildRGL(transformation.matrix = transformation.matrix)
     },
     #' @description

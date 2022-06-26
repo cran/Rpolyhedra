@@ -8,7 +8,8 @@ scrapePolyhedraSources(sources.config =
          getUserEnvir(".available.sources"),
     max.quant.config.schedule = 0,
     max.quant.scrape = 0, time2scrape.source = 30,
-    source.filenames = NULL, retry.scrape = FALSE)
+    source.filenames = NULL, retry.scrape = FALSE,
+    logger = lgr)
 }
 \arguments{
 \item{sources.config}{the sources that will be used by the function}
@@ -22,6 +23,8 @@ scrapePolyhedraSources(sources.config =
 \item{source.filenames}{if not null specify which source filenames to scrape}
 
 \item{retry.scrape}{should it retry scrape?}
+
+\item{logger}{logger for inheriting threshold from calling class/function}
 }
 \value{
 polyhedra db object

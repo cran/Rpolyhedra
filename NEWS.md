@@ -1,4 +1,19 @@
-Rpolyhedra 0.5
+Rpolyhedra 0.5.3
+============
+### MINOR IMPROVEMENTS
+* Polyhedrons can be generated without normalizing size
+
+Rpolyhedra 0.5.2
+============
+### MINOR IMPROVEMENTS
+* Migrated log system from futile.logger to lgr
+
+Rpolyhedra 0.5.1
+============
+### BUG FIXES
+* Can download fulldb using switchToFullDatabase
+
+Rpolyhedra 0.5.0
 ============
 
 ### MINOR IMPROVEMENTS
