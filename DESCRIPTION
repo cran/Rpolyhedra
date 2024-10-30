@@ -1,7 +1,7 @@
 Package: Rpolyhedra
 Type: Package
 Title: Polyhedra Database
-Version: 0.5.4
+Version: 0.5.5
 Language: en-US
 Authors@R: c(
   person("Alejandro", "Baranek",,"abaranek@dc.uba.ar", c("aut","com","cre", "cph")),
@@ -13,10 +13,10 @@ Maintainer: Alejandro Baranek <abaranek@dc.uba.ar>
 Description: A polyhedra database scraped from various sources as R6 objects and 'rgl' visualizing capabilities.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.2
 VignetteBuilder: knitr
 Depends: R (>= 3.5.0)
-Imports: R6, geometry, rgl, stringr, XML, digest, lgr, git2r
+Imports: R6, geometry, rgl, stringr, XML, digest, lgr, jsonlite
 Suggests: testthat, dplyr, knitr, pkgdown, rmarkdown, covr, codemetar
 Collate: 'Rpolyhedra-package.R' 'polyhedra-lib.R' 'ledger-lib.R'
         'db-lib.R' 'env-lib.R' 'package-lib.R' 'serialization-lib.R'
@@ -26,11 +26,11 @@ URL: https://docs.ropensci.org/Rpolyhedra/,
         https://github.com/ropensci/Rpolyhedra
 StagedInstall: TRUE
 NeedsCompilation: no
-Packaged: 2022-09-27 00:00:14 UTC; kenarab
+Packaged: 2024-10-30 22:04:34 UTC; kenarab
 Author: Alejandro Baranek [aut, com, cre, cph],
   Leonardo Belen [aut, com, cph],
   qbotics [cph],
   Barret Schloerke [rev],
   Lijia Yu [rev]
 Repository: CRAN
-Date/Publication: 2022-10-01 13:20:02 UTC
+Date/Publication: 2024-10-30 22:30:02 UTC

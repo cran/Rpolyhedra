@@ -4,11 +4,14 @@
 #' @param pkgname The package name
 #' @noRd
 .onLoad <- function(libname, pkgname) {
+  if (interactive() == FALSE) {
+    rgl::open3d(useNULL = TRUE)
+  }
   setPackageEnvir(variable.name = "RpolyhedraEnv", new.env(parent = asNamespace("Rpolyhedra")))
 
   # package version db
   .package.db <- list()
-  # It is not necesary to put trivial compatibility
+  # It is not necessary to put trivial compatibility
   .package.db[["0.2.5"]] <- "0.2.5"
   .package.db[["0.5.1"]] <- "0.5.0"
 

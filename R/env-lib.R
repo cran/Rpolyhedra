@@ -57,7 +57,7 @@ getDataEnv <- function() {
 
 #' Get user space
 #'
-#' This function is used internally for accesing the local database path
+#' This function is used internally for accessing the local database path
 #' @return path of user space
 #' @noRd
 getUserSpace <- function() {
@@ -66,7 +66,7 @@ getUserSpace <- function() {
 
 #' Initialize data directory environment
 #'
-#' initialize data enviornment
+#' initialize data environment
 #'
 #' @return the data dir environment
 #' @noRd
@@ -88,7 +88,7 @@ initDataDirEnvironment <- function() {
 #'
 #' This function is used internally to determine whether the package
 #' is compiled in source or package directory.
-#' @param data.env enviroment where data directory must be returned
+#' @param data.env environment where data directory must be returned
 #' @return dir where the package access polyhedra database
 #' @noRd
 getDataDir <- function(data.env = getDataEnv()) {
@@ -117,7 +117,7 @@ getEnvironmentFilepath <- function() {
 #' This function is used to set the data directories either to the package or the user home directory.
 #'
 #' @param env The type of environment to work with. Values are "PACKAGE" or "HOME" and it defaults to package
-#' @return the curruent .data.env
+#' @return the current .data.env
 #' @noRd
 setDataDirEnvironment <- function(env = "PACKAGE") {
   if (env %in% c("PACKAGE", "HOME")) {
@@ -235,12 +235,9 @@ selectDataEnv <- function(env = NA, downloadDatabase = TRUE,
 #' get the last git commit sha
 #' @param long.version determines if the complete version of the sha will
 #'         be returned.
-#' @importFrom git2r commits
 #' @return String with git commit sha
 #' @noRd
 getGitCommit <- function(long.version = FALSE) {
-  # TODO: replace with git2r when issue #2 is resolved.
-  # rgit2r::commits()[[1]]@sha
   if (file.exists(".git")) {
     git.sha <- system("git log --pretty=format:'%h' -n 1", intern = TRUE)[1]
   } else {
