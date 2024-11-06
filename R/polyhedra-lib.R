@@ -804,8 +804,18 @@ PolyhedronStateDefined <- R6::R6Class(
     #' @param normalize.size whether it has to normalize the size or not
     #' @return modified  PolyhedronStateDefined object.
     adjustVertices = function(normalize.size = TRUE) {
+      logger <- getLogger(self)
       private$vertices.id.3d <- sort(unique(unlist(self$solid)))
+      vertices.real <- seq_len(nrow(self$vertices))
+      vertices.missing <- setdiff(private$vertices.id.3d, vertices.real)
+      if (length(vertices.missing) > 0)
+      {
+        logger$warn("Verticea in solid not defined",
+                    vertices.missing = vertices.missing)
+      }
+      private$vertices.id.3d <- intersect(private$vertices.id.3d, vertices.real)
       self$vertices.centered <- self$vertices
+      #browser()
       mass.center <- self$calculateMassCenter(
         vertices.id.3d = private$vertices.id.3d,
         applyTransformation = FALSE
